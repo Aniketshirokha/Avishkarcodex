@@ -35,13 +35,13 @@ const Header: React.FC = () => {
   return (
     <header className={`fixed top-0 w-full z-50 transition-all duration-500 px-6 py-4`}>
       <nav className={`container mx-auto max-w-6xl px-8 py-4 flex justify-between items-center transition-all duration-500 rounded-[2.5rem] border ${isScrolled ? 'glass-nav border-slate-200 shadow-xl' : 'bg-white/80 border-transparent shadow-sm'}`}>
-        <Link to="/" className="flex items-center group z-50">
+        <Link to="/" className="flex items-center group z-[60]">
           <div className="flex items-center space-x-3">
              <div className="relative w-10 h-10 rounded-xl bg-[#0A2540] flex items-center justify-center overflow-hidden transition-transform duration-500 group-hover:rotate-6 shadow-md">
                 <span className="text-white font-black text-xl">A</span>
              </div>
              <div className="flex flex-col">
-                <span className="font-extrabold text-lg tracking-tight leading-none text-[#0A2540]">AAVISHKAR</span>
+                <span className={`font-extrabold text-lg tracking-tight leading-none ${isMobileMenuOpen ? 'text-white' : 'text-[#0A2540]'} transition-colors`}>AAVISHKAR</span>
                 <span className="text-[8px] font-black tracking-[0.3em] opacity-60 uppercase text-[#4FACFE]">Codex Infotech</span>
              </div>
           </div>
@@ -73,19 +73,19 @@ const Header: React.FC = () => {
 
         {/* Mobile Toggle */}
         <button 
-          className="lg:hidden z-50 text-[#0A2540] p-3 hover:bg-slate-100 rounded-2xl transition-all active:scale-90" 
+          className={`lg:hidden z-[60] p-3 rounded-2xl transition-all active:scale-90 ${isMobileMenuOpen ? 'bg-white/10 text-white' : 'text-[#0A2540] hover:bg-slate-100'}`} 
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </nav>
 
-      {/* Modern Fullscreen Mobile Menu */}
+      {/* Fullscreen Mobile Menu Overlay */}
       <div 
-        className={`lg:hidden fixed inset-0 bg-[#0A2540] transition-all duration-700 ease-[cubic-bezier(0.85,0,0.15,1)] ${isMobileMenuOpen ? 'translate-y-0 opacity-100 visible' : '-translate-y-full opacity-0 invisible'} pointer-events-auto z-[45]`}
+        className={`lg:hidden fixed inset-0 bg-[#0A2540] transition-all duration-700 ease-[cubic-bezier(0.85,0,0.15,1)] ${isMobileMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 invisible'} z-[55]`}
       >
-        <div className="h-full flex flex-col justify-between p-12 pt-32">
-          <div className={`space-y-6 ${isMobileMenuOpen ? 'mobile-menu-open' : ''}`}>
+        <div className="h-full flex flex-col justify-between p-12 pt-40 overflow-y-auto">
+          <div className={`space-y-8 ${isMobileMenuOpen ? 'mobile-menu-open' : ''}`}>
             {navLinks.map((link, i) => (
               <Link
                 key={link.name}
@@ -101,30 +101,31 @@ const Header: React.FC = () => {
               to="/contact"
               onClick={() => setIsMobileMenuOpen(false)}
               style={{ transitionDelay: `${0.1 + navLinks.length * 0.1}s` }}
-              className="mobile-menu-link group inline-flex items-center text-2xl font-black text-[#4FACFE] mt-8 tracking-tight"
+              className="mobile-menu-link group inline-flex items-center text-2xl font-black text-[#4FACFE] mt-12 tracking-tight"
             >
-              Initialize Project <ArrowRight className="ml-3 group-hover:translate-x-2 transition-transform" />
+              Initialize Project <ArrowRight className="ml-4 group-hover:translate-x-3 transition-transform" />
             </Link>
           </div>
 
-          <div className={`mt-auto border-t border-white/10 pt-10 flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-8 sm:space-y-0 ${isMobileMenuOpen ? 'mobile-menu-open' : ''}`}>
+          <div className={`mt-20 border-t border-white/10 pt-10 flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-10 sm:space-y-0 ${isMobileMenuOpen ? 'mobile-menu-open' : ''}`}>
             <div 
               style={{ transitionDelay: '0.6s' }}
               className="mobile-menu-link"
             >
               <div className="text-[10px] font-black text-white/40 uppercase tracking-[0.3em] mb-4">Connect Protocol</div>
-              <div className="flex space-x-6">
-                 <a href="#" className="text-white hover:text-[#4FACFE] transition-colors"><Instagram size={24} /></a>
-                 <a href="#" className="text-white hover:text-[#4FACFE] transition-colors"><Linkedin size={24} /></a>
-                 <a href="#" className="text-white hover:text-[#4FACFE] transition-colors"><Twitter size={24} /></a>
+              <div className="flex space-x-8">
+                 <a href="#" className="text-white hover:text-[#4FACFE] transition-all transform hover:scale-110"><Instagram size={28} /></a>
+                 <a href="#" className="text-white hover:text-[#4FACFE] transition-all transform hover:scale-110"><Linkedin size={28} /></a>
+                 <a href="#" className="text-white hover:text-[#4FACFE] transition-all transform hover:scale-110"><Twitter size={28} /></a>
               </div>
             </div>
             <div 
               style={{ transitionDelay: '0.7s' }}
-              className="mobile-menu-link text-right"
+              className="mobile-menu-link text-left sm:text-right"
             >
                <div className="text-[10px] font-black text-white/40 uppercase tracking-[0.3em] mb-2">Regional Hub</div>
-               <div className="text-white font-bold text-lg">Ahmedabad, India</div>
+               <div className="text-white font-bold text-xl">Ahmedabad, India</div>
+               <div className="text-white/40 text-sm mt-1">contact@aavishkarcodex.com</div>
             </div>
           </div>
         </div>

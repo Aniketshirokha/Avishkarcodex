@@ -85,16 +85,16 @@ const ServicesPage: React.FC = () => {
           })}
         </div>
 
-        {/* Global Infrastructure Banner - High Contrast Fix */}
-        <div className="mt-40 bg-[#0A2540] rounded-[3rem] md:rounded-[4rem] p-12 md:p-32 text-center text-white shadow-[0_40px_100px_rgba(10,37,64,0.3)] reveal border-4 border-white/10 relative overflow-hidden">
+        {/* Global Infrastructure Banner */}
+        <div className="mt-40 bg-[#0A2540] rounded-[3rem] md:rounded-[4rem] p-12 md:p-32 text-center text-white shadow-[0_40px_100px_rgba(10,37,64,0.4)] reveal border-4 border-white/5 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-[#4FACFE]/10 to-transparent pointer-events-none"></div>
           <div className="relative z-10 flex flex-col items-center">
             <h2 className="text-4xl md:text-7xl font-black mb-8 leading-none tracking-tighter">Bespoke Requirements?</h2>
             <p className="text-white/70 mb-16 max-w-2xl mx-auto text-xl font-semibold leading-relaxed">Our expertise extends beyond standard libraries. We engineer unique digital ecosystems for complex global challenges.</p>
             <div className="flex justify-center w-full">
-              <a href="#/contact" className="btn-white group w-full sm:w-auto">
-                Connect with Architecture Team
-                <ArrowRight className="ml-3 group-hover:translate-x-2 transition-transform" />
+              <a href="#/contact" className="btn-white group w-full sm:w-auto flex items-center justify-center">
+                <span className="relative z-10">Connect with Architecture Team</span>
+                <ArrowRight className="ml-3 group-hover:translate-x-2 transition-transform relative z-10" />
               </a>
             </div>
           </div>

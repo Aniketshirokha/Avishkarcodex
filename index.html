@@ -102,6 +102,8 @@
             align-items: center;
             justify-content: center;
             font-weight: 800;
+            padding: 1rem 2.5rem;
+            border-radius: 1.5rem;
         }
         .btn-primary:hover {
             background: #1e3a5a !important;
@@ -114,19 +116,20 @@
             background: #FFFFFF !important;
             color: #0A2540 !important;
             border: 2px solid #FFFFFF !important;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2) !important;
             transition: all 0.3s var(--easing) !important;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             font-weight: 800;
-            padding: 1rem 2.5rem;
+            padding: 1.25rem 3rem;
             border-radius: 1.5rem;
+            z-index: 10;
         }
         .btn-white:hover {
-            background: #F1F5F9 !important;
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15) !important;
+            background: #F8FAFC !important;
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25) !important;
         }
 
         /* Card Definition */
@@ -189,21 +192,11 @@
             border-bottom: 1px solid #E2E8F0;
         }
 
-        #scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            background: #4FACFE;
-            z-index: 10002;
-            width: 0%;
-        }
-
-        /* Improved Mobile Menu Link Animation */
+        /* Mobile Menu Link Animation */
         .mobile-menu-link {
             opacity: 0;
-            transform: translateX(-20px);
-            transition: all 0.5s var(--easing);
+            transform: translateX(-30px);
+            transition: all 0.6s var(--easing);
         }
         .mobile-menu-open .mobile-menu-link {
             opacity: 1;
@@ -217,6 +210,11 @@
         }
         .animate-float {
             animation: float 5s ease-in-out infinite;
+        }
+
+        /* Global Gradient Utility */
+        .gradient-primary {
+            background: linear-gradient(135deg, #4FACFE 0%, #0061FF 100%) !important;
         }
     </style>
 <script type="importmap">
@@ -239,15 +237,10 @@
     <script>
         // Initialize Lenis Smooth Scroll
         const lenis = new Lenis({
-          duration: 1.2,
+          duration: 1.4,
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          direction: 'vertical',
-          gestureDirection: 'vertical',
-          smooth: true,
-          mouseMultiplier: 1,
-          smoothTouch: false,
-          touchMultiplier: 2,
-          infinite: false,
+          smoothWheel: true,
+          wheelMultiplier: 1.1,
         });
 
         function raf(time) {
