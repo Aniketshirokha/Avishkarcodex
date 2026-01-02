@@ -39,6 +39,31 @@
             overflow-x: hidden;
         }
 
+        /* Modern Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E2E8F0;
+            border-radius: 10px;
+            border: 2px solid #F1F5F9;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4FACFE;
+        }
+
+        /* Utility classes */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
         /* Prevent default cursor on desktop */
         @media (min-width: 1025px) {
             .custom-cursor-active {
@@ -242,6 +267,9 @@
           smoothWheel: true,
           wheelMultiplier: 1.1,
         });
+
+        // Expose to window for React components
+        window.lenis = lenis;
 
         function raf(time) {
           lenis.raf(time);

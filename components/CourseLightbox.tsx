@@ -13,8 +13,13 @@ const iconMap: any = {
 
 const CourseLightbox: React.FC<CourseLightboxProps> = ({ course, onClose }) => {
   useEffect(() => {
+    // Pause smooth scrolling when modal opens
+    if ((window as any).lenis) (window as any).lenis.stop();
     document.body.style.overflow = 'hidden';
+
     return () => {
+      // Resume smooth scrolling when modal closes
+      if ((window as any).lenis) (window as any).lenis.start();
       document.body.style.overflow = 'unset';
     };
   }, []);
@@ -33,7 +38,7 @@ const CourseLightbox: React.FC<CourseLightboxProps> = ({ course, onClose }) => {
         onClick={onClose}
       />
       
-      <div className="relative w-full max-w-6xl bg-white rounded-[3rem] shadow-[0_40px_100px_rgba(0,0,0,0.3)] overflow-hidden animate-in slide-in-from-bottom-20 duration-500 ease-out">
+      <div className="relative w-full max-w-6xl bg-white rounded-[3rem] shadow-[0_40px_100px_rgba(0,0,0,0.3)] overflow-hidden animate-in slide-in-from-bottom-20 duration-500 ease-out max-h-[90vh] flex flex-col">
         <button 
           onClick={onClose}
           className="absolute top-8 right-8 p-3 text-[#0A2540] hover:bg-blue-50 bg-white border-2 border-blue-100 rounded-2xl z-30 transition-all hover:rotate-90 shadow-lg"
@@ -41,7 +46,10 @@ const CourseLightbox: React.FC<CourseLightboxProps> = ({ course, onClose }) => {
           <X size={28} />
         </button>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 max-h-[90vh] overflow-y-auto">
+        <div 
+          data-lenis-prevent
+          className="grid grid-cols-1 lg:grid-cols-12 overflow-y-auto scroll-smooth"
+        >
           {/* Main Info */}
           <div className="lg:col-span-7 p-10 md:p-16">
             <div className="flex items-center gap-6 mb-10">

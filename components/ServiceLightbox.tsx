@@ -11,8 +11,13 @@ interface ServiceLightboxProps {
 
 const ServiceLightbox: React.FC<ServiceLightboxProps> = ({ service, onClose, onNext, onPrev }) => {
   useEffect(() => {
+    // Pause smooth scrolling when modal opens
+    if ((window as any).lenis) (window as any).lenis.stop();
     document.body.style.overflow = 'hidden';
+    
     return () => {
+      // Resume smooth scrolling when modal closes
+      if ((window as any).lenis) (window as any).lenis.start();
       document.body.style.overflow = 'unset';
     };
   }, []);
@@ -29,7 +34,7 @@ const ServiceLightbox: React.FC<ServiceLightboxProps> = ({ service, onClose, onN
         onClick={onClose}
       />
       
-      <div className="relative w-full max-w-6xl bg-white rounded-[3rem] shadow-[0_30px_100px_rgba(0,0,0,0.25)] overflow-hidden animate-in zoom-in-95 fade-in slide-in-from-bottom-12 duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+      <div className="relative w-full max-w-6xl bg-white rounded-[3rem] shadow-[0_30px_100px_rgba(0,0,0,0.25)] overflow-hidden animate-in zoom-in-95 fade-in slide-in-from-bottom-12 duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] flex flex-col max-h-[90vh]">
         <button 
           onClick={onClose}
           className="absolute top-8 right-8 p-3 text-[#0A2540] hover:bg-blue-100 bg-blue-50 rounded-2xl z-30 transition-all hover:rotate-90 shadow-md border border-blue-100"
@@ -37,9 +42,12 @@ const ServiceLightbox: React.FC<ServiceLightboxProps> = ({ service, onClose, onN
           <X size={28} />
         </button>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
-          {/* Content Area */}
-          <div className="p-10 md:p-16 lg:p-20 overflow-y-auto max-h-[90vh] lg:max-h-none scrollbar-hide bg-white">
+        <div className="grid grid-cols-1 lg:grid-cols-2 h-full overflow-hidden">
+          {/* Content Area - Scrollable with Lenis prevention */}
+          <div 
+            data-lenis-prevent
+            className="p-10 md:p-16 lg:p-20 overflow-y-auto bg-white scroll-smooth"
+          >
             <div className="inline-block px-5 py-2.5 bg-blue-100 border border-blue-200 text-[#0A2540] text-[10px] font-black uppercase tracking-[0.4em] rounded-xl mb-10 shadow-sm">
               {service.category} UNIT
             </div>
