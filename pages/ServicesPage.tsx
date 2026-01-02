@@ -36,13 +36,14 @@ const ServicesPage: React.FC = () => {
   };
 
   return (
-    <div className="pt-32 pb-24 min-h-screen">
+    <div className="pt-32 pb-24 min-h-screen bg-[#F8FAFC]">
       <div className="container mx-auto px-6">
-        <div className="max-w-4xl mb-20 reveal active">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-[#0A2540] mb-8 tracking-tighter leading-none">
-              Specialized <span className="text-transparent bg-clip-text gradient-primary">Units.</span>
+        <div className="max-w-4xl mb-24 reveal active">
+            <div className="tag-pill mb-8">Capabilities</div>
+            <h1 className="text-6xl md:text-8xl font-black text-[#0A2540] mb-8 tracking-tighter leading-[0.9]">
+              Specialized <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4FACFE] to-[#0061FF]">Units.</span>
             </h1>
-            <p className="text-xl text-[#6B7280] leading-relaxed max-w-2xl font-medium">
+            <p className="text-2xl text-[#64748B] leading-relaxed max-w-2xl font-semibold opacity-90">
               We operate through high-fidelity engineering units designed for speed, security, and infinite scalability.
             </p>
         </div>
@@ -55,7 +56,7 @@ const ServicesPage: React.FC = () => {
             return (
               <div key={cat} id={cat.replace(/\s+/g, '-').toLowerCase()} className="reveal active" style={{ transitionDelay: `${catIdx * 100}ms` }}>
                 <h2 className="text-xl font-black text-[#0A2540] mb-12 uppercase tracking-[0.4em] flex items-center">
-                   <span className="w-12 h-[3px] gradient-primary mr-6 rounded-full"></span>
+                   <span className="w-12 h-[3.5px] gradient-primary mr-6 rounded-full"></span>
                    {cat}
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -65,13 +66,13 @@ const ServicesPage: React.FC = () => {
                       <div 
                         key={service.id}
                         onClick={() => openService(service)}
-                        className="soft-card p-12 cursor-pointer group flex flex-col h-full border border-white/50"
+                        className="soft-card p-12 cursor-pointer group flex flex-col h-full border border-slate-100"
                       >
-                        <div className="w-16 h-16 bg-[#EAF6FF] rounded-2xl flex items-center justify-center text-[#4FACFE] mb-10 group-hover:gradient-primary group-hover:text-white transition-all duration-500 shadow-sm">
+                        <div className="w-16 h-16 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-center text-[#4FACFE] mb-10 group-hover:bg-[#0A2540] group-hover:text-white transition-all duration-500 shadow-sm">
                           <Icon size={32} />
                         </div>
-                        <h3 className="text-2xl font-bold text-[#0A2540] mb-4 group-hover:text-[#4FACFE] transition-colors leading-tight">{service.title}</h3>
-                        <p className="text-[#6B7280] text-base leading-relaxed mb-10 flex-grow font-medium opacity-80">{service.shortDesc}</p>
+                        <h3 className="text-2xl font-black text-[#0A2540] mb-4 group-hover:text-[#4FACFE] transition-colors leading-tight">{service.title}</h3>
+                        <p className="text-[#64748B] text-base leading-relaxed mb-10 flex-grow font-semibold opacity-80">{service.shortDesc}</p>
                         <div className="flex items-center text-[#4FACFE] font-black text-[10px] uppercase tracking-[0.3em] group-hover:translate-x-2 transition-transform">
                           Initialize Unit <ArrowRight size={14} className="ml-3" />
                         </div>
@@ -84,13 +85,19 @@ const ServicesPage: React.FC = () => {
           })}
         </div>
 
-        {/* Global Infrastructure Banner */}
-        <div className="mt-40 gradient-primary rounded-[4rem] p-16 md:p-32 text-center text-white shadow-3xl reveal">
-          <h2 className="text-4xl md:text-6xl font-black mb-8 leading-none tracking-tighter">Bespoke Requirements?</h2>
-          <p className="text-white/80 mb-16 max-w-2xl mx-auto text-xl font-medium">Our expertise extends beyond standard libraries. We engineer unique digital ecosystems for complex global challenges.</p>
-          <a href="#/contact" className="inline-block bg-white text-[#0A2540] px-12 py-6 rounded-[2rem] font-black text-xl hover:scale-105 shadow-2xl transition-all uppercase tracking-widest">
-            Connect with Architecture Team
-          </a>
+        {/* Global Infrastructure Banner - High Contrast Fix */}
+        <div className="mt-40 bg-[#0A2540] rounded-[3rem] md:rounded-[4rem] p-12 md:p-32 text-center text-white shadow-[0_40px_100px_rgba(10,37,64,0.3)] reveal border-4 border-white/10 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-[#4FACFE]/10 to-transparent pointer-events-none"></div>
+          <div className="relative z-10 flex flex-col items-center">
+            <h2 className="text-4xl md:text-7xl font-black mb-8 leading-none tracking-tighter">Bespoke Requirements?</h2>
+            <p className="text-white/70 mb-16 max-w-2xl mx-auto text-xl font-semibold leading-relaxed">Our expertise extends beyond standard libraries. We engineer unique digital ecosystems for complex global challenges.</p>
+            <div className="flex justify-center w-full">
+              <a href="#/contact" className="btn-white group w-full sm:w-auto">
+                Connect with Architecture Team
+                <ArrowRight className="ml-3 group-hover:translate-x-2 transition-transform" />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 

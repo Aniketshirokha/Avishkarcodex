@@ -7,84 +7,170 @@
     <meta name="description" content="Premium technology solutions with a modern, app-inspired digital experience.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lenis for Smooth Scrolling -->
+    <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script> 
     <style>
         :root {
             --easing: cubic-bezier(0.22, 1, 0.36, 1);
             --transition-speed: 0.6s;
         }
 
+        html.lenis {
+          height: auto;
+        }
+
+        .lenis.lenis-smooth {
+          scroll-behavior: auto !important;
+        }
+
+        .lenis.lenis-smooth [data-lenis-prevent] {
+          overscroll-behavior: contain;
+        }
+
+        .lenis.lenis-stopped {
+          overflow: hidden;
+        }
+
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            scroll-behavior: smooth;
             -webkit-font-smoothing: antialiased;
-            background-color: #F0F7FF; /* Slightly darker base for better card contrast */
-            color: #1F2937;
+            background-color: #F8FAFC; 
+            color: #0F172A;
             overflow-x: hidden;
         }
 
-        /* Prevent default cursor only if custom cursor is active */
-        .custom-cursor-active {
-            cursor: none;
-        }
-        .custom-cursor-active a, 
-        .custom-cursor-active button,
-        .custom-cursor-active .cursor-pointer {
-            cursor: none;
+        /* Prevent default cursor on desktop */
+        @media (min-width: 1025px) {
+            .custom-cursor-active {
+                cursor: none !important;
+            }
+            .custom-cursor-active a, 
+            .custom-cursor-active button,
+            .custom-cursor-active .cursor-pointer {
+                cursor: none !important;
+            }
         }
 
         #custom-cursor {
             position: fixed;
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             background: #0A2540;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10001;
+            left: 0;
+            top: 0;
+            will-change: transform;
+            display: none;
+        }
+
+        #custom-cursor-ring {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(10, 37, 64, 0.8);
             border-radius: 50%;
             pointer-events: none;
             z-index: 10000;
             left: 0;
             top: 0;
             will-change: transform;
+            transition: width 0.3s var(--easing), height 0.3s var(--easing), background 0.3s var(--easing);
+            display: none;
         }
 
-        #custom-cursor-ring {
-            position: fixed;
-            width: 44px;
-            height: 44px;
-            border: 2px solid rgba(79, 172, 254, 0.8);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            left: 0;
-            top: 0;
-            will-change: transform;
-            transition: width 0.3s var(--easing), height 0.3s var(--easing), background 0.3s var(--easing), border-color 0.3s var(--easing);
+        @media (min-width: 1025px) {
+            #custom-cursor, #custom-cursor-ring { display: block; }
         }
 
         .cursor-active #custom-cursor-ring {
-            width: 70px;
-            height: 70px;
-            background: rgba(79, 172, 254, 0.15);
-            border-color: rgba(79, 172, 254, 1);
+            width: 60px;
+            height: 60px;
+            background: rgba(10, 37, 64, 0.05);
+            border-color: #4FACFE;
         }
 
-        .section-separator {
-            height: 2px;
-            width: 100%;
-            background: rgba(79, 172, 254, 0.1);
-            position: relative;
+        /* High Visibility Buttons */
+        .btn-primary {
+            background: #0A2540 !important;
+            color: #FFFFFF !important;
+            border: 2px solid #0A2540 !important;
+            box-shadow: 0 10px 25px rgba(10, 37, 64, 0.25) !important;
+            transition: all 0.3s var(--easing) !important;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+        .btn-primary:hover {
+            background: #1e3a5a !important;
+            border-color: #1e3a5a !important;
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(10, 37, 64, 0.35) !important;
+        }
+
+        .btn-white {
+            background: #FFFFFF !important;
+            color: #0A2540 !important;
+            border: 2px solid #FFFFFF !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+            transition: all 0.3s var(--easing) !important;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            padding: 1rem 2.5rem;
+            border-radius: 1.5rem;
+        }
+        .btn-white:hover {
+            background: #F1F5F9 !important;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        /* Card Definition */
+        .soft-card {
+            background: #FFFFFF;
+            border-radius: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #E2E8F0;
+            transition: all 0.4s var(--easing);
+        }
+        .soft-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+            border-color: #4FACFE;
+        }
+
+        /* Trust Bar Marquee */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .marquee-container {
             overflow: hidden;
-        }
-        .section-separator::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
+            white-space: nowrap;
+            display: flex;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(79, 172, 254, 0.6), transparent);
-            animation: light-sweep 3s infinite linear;
+            background: #0A2540;
+            padding: 1.5rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
-        @keyframes light-sweep {
-            to { left: 100%; }
+        .marquee-content {
+            display: flex;
+            animation: marquee 40s linear infinite;
+            min-width: 200%;
+        }
+        .marquee-item {
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: #FFFFFF;
+            margin: 0 4rem;
+            opacity: 0.8;
+            flex-shrink: 0;
         }
 
         .reveal {
@@ -97,42 +183,40 @@
             transform: translateY(0);
         }
 
-        .stagger-1 { transition-delay: 0.1s; }
-        .stagger-2 { transition-delay: 0.2s; }
-        .stagger-3 { transition-delay: 0.3s; }
-
         .glass-nav {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
-            border-bottom: 2px solid rgba(79, 172, 254, 0.1);
+            border-bottom: 1px solid #E2E8F0;
         }
 
         #scroll-progress {
             position: fixed;
             top: 0;
             left: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #4FACFE, #00C6FB);
-            z-index: 10001;
+            height: 3px;
+            background: #4FACFE;
+            z-index: 10002;
             width: 0%;
         }
 
-        .soft-card {
-            background: #FFFFFF;
-            border-radius: 2.5rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
-            border: 2px solid #FFFFFF;
-            transition: all 0.4s var(--easing);
+        /* Improved Mobile Menu Link Animation */
+        .mobile-menu-link {
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.5s var(--easing);
         }
-        .soft-card:hover {
-            box-shadow: 0 20px 60px rgba(79, 172, 254, 0.15);
-            border-color: rgba(79, 172, 254, 0.2);
-            transform: translateY(-5px);
+        .mobile-menu-open .mobile-menu-link {
+            opacity: 1;
+            transform: translateX(0);
         }
 
-        @media (max-width: 1024px) {
-            #custom-cursor, #custom-cursor-ring { display: none; }
-            body { cursor: auto !important; }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 5s ease-in-out infinite;
         }
     </style>
 <script type="importmap">
@@ -153,31 +237,50 @@
     <div id="custom-cursor-ring"></div>
     <div id="root"></div>
     <script>
-        // Smoother Custom Cursor with requestAnimationFrame
+        // Initialize Lenis Smooth Scroll
+        const lenis = new Lenis({
+          duration: 1.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          direction: 'vertical',
+          gestureDirection: 'vertical',
+          smooth: true,
+          mouseMultiplier: 1,
+          smoothTouch: false,
+          touchMultiplier: 2,
+          infinite: false,
+        });
+
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+
+        requestAnimationFrame(raf);
+
+        // Custom Cursor
         const cursor = document.getElementById('custom-cursor');
         const ring = document.getElementById('custom-cursor-ring');
-        let mouseX = 0, mouseY = 0;
-        let ringX = 0, ringY = 0;
-        let cursorX = 0, cursorY = 0;
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        let ringX = mouseX, ringY = mouseY;
+        let cursorX = mouseX, cursorY = mouseY;
 
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
-        });
+        }, { passive: true });
 
         function animateCursor() {
-            // Lerp for smoothing
-            cursorX += (mouseX - cursorX) * 0.9;
-            cursorY += (mouseY - cursorY) * 0.9;
-            ringX += (mouseX - ringX) * 0.15;
-            ringY += (mouseY - ringY) * 0.15;
+            cursorX += (mouseX - cursorX) * 0.95;
+            cursorY += (mouseY - cursorY) * 0.95;
+            ringX += (mouseX - ringX) * 0.18;
+            ringY += (mouseY - ringY) * 0.18;
 
-            cursor.style.transform = `translate3d(${cursorX - 5}px, ${cursorY - 5}px, 0)`;
-            ring.style.transform = `translate3d(${ringX - 22}px, ${ringY - 22}px, 0)`;
+            cursor.style.transform = `translate3d(${cursorX - 4}px, ${cursorY - 4}px, 0)`;
+            ring.style.transform = `translate3d(${ringX - 20}px, ${ringY - 20}px, 0)`;
             
             requestAnimationFrame(animateCursor);
         }
-        animateCursor();
+        requestAnimationFrame(animateCursor);
 
         document.addEventListener('mouseover', (e) => {
             if (e.target.closest('a, button, [role="button"], .cursor-pointer, select, input, textarea')) {
@@ -191,14 +294,6 @@
             }
         });
 
-        // Scroll Progress
-        window.addEventListener('scroll', () => {
-            const h = document.documentElement, b = document.body;
-            const percent = (h.scrollTop || b.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
-            document.getElementById('scroll-progress').style.width = percent + '%';
-        }, { passive: true });
-
-        // Optimized Intersection Observer
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -212,7 +307,6 @@
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         };
 
-        // Re-init reveals when content changes (SPA)
         const mutationObserver = new MutationObserver(() => initReveals());
         mutationObserver.observe(document.body, { childList: true, subtree: true });
         window.addEventListener('load', initReveals);
