@@ -13,10 +13,10 @@
         :root {
             --easing: cubic-bezier(0.22, 1, 0.36, 1);
             --transition-speed: 0.8s;
-            /* Optimized Clamps for better mobile fit */
-            --fluid-h1: clamp(1.8rem, 10vw, 8.5rem);
-            --fluid-h2: clamp(1.5rem, 8vw, 5.5rem);
-            --fluid-h3: clamp(1.2rem, 5vw, 3.5rem);
+            /* Improved Clamps: smaller base for mobile, scaling up for desktop */
+            --fluid-h1: clamp(2.5rem, 12vw, 8.5rem);
+            --fluid-h2: clamp(2rem, 10vw, 5.5rem);
+            --fluid-h3: clamp(1.5rem, 6vw, 3.5rem);
             --primary: #0051FF;
             --accent: #4FACFE;
         }
@@ -34,15 +34,10 @@
             width: 100%;
         }
 
-        /* DIGITAL TEXTURE OVERLAY */
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-            opacity: 0.03;
-            pointer-events: none;
-            z-index: 9999;
+        /* Responsive Text Overrides */
+        @media (max-width: 768px) {
+            .text-fluid-h1 { font-size: 2.75rem !important; line-height: 1.1 !important; }
+            .text-fluid-h2 { font-size: 2.25rem !important; line-height: 1.1 !important; }
         }
 
         .text-fluid-h1 { font-size: var(--fluid-h1); line-height: 0.9; letter-spacing: -0.06em; font-weight: 800; }
@@ -60,108 +55,30 @@
 
         @media (min-width: 1025px) {
             body.custom-cursor-active { cursor: none !important; }
-            body.custom-cursor-active a, 
-            body.custom-cursor-active button,
-            body.custom-cursor-active .interactive { cursor: none !important; }
-
-            #custom-cursor {
-                width: 6px; height: 6px;
-                background: #0051FF;
-                display: block;
-            }
-            #custom-cursor-ring {
-                width: 36px; height: 36px;
-                border: 1.5px solid rgba(0, 81, 255, 0.5);
-                display: block;
-                transition: width 0.3s var(--easing), height 0.3s var(--easing), border-color 0.3s var(--easing);
-            }
+            #custom-cursor { width: 6px; height: 6px; background: #0051FF; display: block; }
+            #custom-cursor-ring { width: 36px; height: 36px; border: 1.5px solid rgba(0, 81, 255, 0.5); display: block; }
         }
 
         /* ASSEMBLY ANIMATIONS */
-        .reveal { 
-            opacity: 0; 
-            transform: translateY(30px) skewY(0.5deg); 
-            transition: opacity 0.8s var(--easing), transform 0.8s var(--easing); 
-            will-change: transform, opacity;
-        }
-        .reveal.active { 
-            opacity: 1; 
-            transform: translateY(0) skewY(0deg); 
-        }
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s var(--easing), transform 0.8s var(--easing); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
         
-        .reveal-scale { 
-            opacity: 0; 
-            transform: scale(0.96) translateY(15px); 
-            transition: all 0.7s var(--easing); 
-        }
-        .reveal-scale.active { 
-            opacity: 1; 
-            transform: scale(1) translateY(0); 
-        }
-
-        /* IDLE FLOATING */
-        @keyframes float-subtle {
-            0%, 100% { transform: translateY(0) rotate(0); }
-            33% { transform: translateY(-8px) rotate(0.1deg); }
-            66% { transform: translateY(-3px) rotate(-0.1deg); }
-        }
-        .animate-float-subtle { animation: float-subtle 8s ease-in-out infinite; }
-
-        /* SCANLINE EFFECT */
-        .scan-wrapper { position: relative; overflow: hidden; }
-        .scan-wrapper::after {
-            content: "";
-            position: absolute;
-            top: -100%;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent, rgba(0, 81, 255, 0.05), transparent);
-            animation: scan-vertical 12s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes scan-vertical {
-            0% { top: -100%; }
-            100% { top: 100%; }
-        }
-
-        /* GRID CANVAS */
-        #bg-grid-canvas {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            opacity: 0.1;
-            pointer-events: none;
-        }
+        .reveal-scale { opacity: 0; transform: scale(0.96); transition: all 0.7s var(--easing); }
+        .reveal-scale.active { opacity: 1; transform: scale(1); }
 
         .glass-panel {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(25px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
         }
 
         .btn-primary {
             background: linear-gradient(135deg, #0051FF 0%, #4FACFE 100%);
             color: white;
-            box-shadow: 0 10px 30px -10px rgba(0, 81, 255, 0.4);
             transition: all 0.5s var(--easing);
         }
 
-        .btn-primary:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 20px 50px -15px rgba(0, 81, 255, 0.5);
-        }
-        
-        .btn-pill {
-            border-radius: 9999px !important;
-        }
-
-        /* Responsive Mobile Layout Fixes */
-        @media (max-width: 640px) {
-            .container { padding-left: 1.25rem; padding-right: 1.25rem; }
-        }
+        .btn-primary:hover { transform: translateY(-3px) scale(1.02); }
     </style>
 <script type="importmap">
 {
@@ -176,53 +93,28 @@
 </script>
 </head>
 <body class="custom-cursor-active">
-    <canvas id="bg-grid-canvas"></canvas>
+    <canvas id="bg-grid-canvas" style="position:fixed; inset:0; z-index:-1; opacity:0.1;"></canvas>
     <div id="custom-cursor"></div>
     <div id="custom-cursor-ring"></div>
     <div id="root"></div>
 
+    <!-- MAIN ENTRY POINT -->
+    <script type="module" src="index.tsx"></script>
+
     <script>
-        // GRID CANVAS - optimized for mobile
+        // GRID CANVAS
         const canvas = document.getElementById('bg-grid-canvas');
         const ctx = canvas.getContext('2d');
         let width, height;
-
-        function resize() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        resize();
-
-        let mouseX = width / 2;
-        let mouseY = height / 2;
-
-        window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-
+        function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resize); resize();
         function drawGrid() {
             ctx.clearRect(0, 0, width, height);
-            ctx.strokeStyle = '#0051FF';
-            ctx.lineWidth = 0.5;
-            
-            // Adjust density based on screen size
+            ctx.strokeStyle = '#0051FF'; ctx.lineWidth = 0.5;
             const gridSize = width < 768 ? 40 : 60;
             for (let x = 0; x < width; x += gridSize) {
                 for (let y = 0; y < height; y += gridSize) {
-                    const dx = x - mouseX;
-                    const dy = y - mouseY;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    const range = width < 768 ? 100 : 180;
-                    const mag = Math.max(0, range - dist) / 5;
-                    
-                    const offsetX = (dx / dist) * mag || 0;
-                    const offsetY = (dy / dist) * mag || 0;
-
-                    ctx.beginPath();
-                    ctx.arc(x + offsetX, y + offsetY, 0.4, 0, Math.PI * 2);
-                    ctx.stroke();
+                    ctx.beginPath(); ctx.arc(x, y, 0.4, 0, Math.PI * 2); ctx.stroke();
                 }
             }
             requestAnimationFrame(drawGrid);
@@ -230,66 +122,10 @@
         drawGrid();
 
         // LENIS
-        const lenis = new Lenis({ 
-            duration: 1.2, 
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
-            smoothWheel: true 
-        });
+        const lenis = new Lenis({ duration: 1.2, smoothWheel: true });
         window.lenis = lenis;
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
-
-        // CURSOR TRACKING
-        const cursor = document.getElementById('custom-cursor');
-        const ring = document.getElementById('custom-cursor-ring');
-        let curX = 0, curY = 0;
-        let ringX = 0, ringY = 0;
-
-        function updateCursor() {
-            curX += (mouseX - curX) * 0.25;
-            curY += (mouseY - curY) * 0.25;
-            ringX += (mouseX - ringX) * 0.15;
-            ringY += (mouseY - ringY) * 0.15;
-
-            if(cursor) cursor.style.transform = `translate3d(${curX - 3}px, ${curY - 3}px, 0)`;
-            if(ring) ring.style.transform = `translate3d(${ringX - 18}px, ${ringY - 18}px, 0)`;
-            
-            requestAnimationFrame(updateCursor);
-        }
-        updateCursor();
-
-        // LISTENERS
-        const refreshCursorListeners = () => {
-            document.querySelectorAll('a, button, .interactive, select, input, textarea').forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    if(ring) {
-                        ring.style.width = '60px'; ring.style.height = '60px';
-                        ring.style.borderColor = 'rgba(0, 81, 255, 0.8)';
-                    }
-                });
-                el.addEventListener('mouseleave', () => {
-                    if(ring) {
-                        ring.style.width = '36px'; ring.style.height = '36px';
-                        ring.style.borderColor = 'rgba(0, 81, 255, 0.3)';
-                    }
-                });
-            });
-        };
-
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { 
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
-        }, { threshold: 0.1 });
-
-        const initUI = () => {
-            document.querySelectorAll('.reveal, .reveal-scale').forEach(el => revealObserver.observe(el));
-            refreshCursorListeners();
-        };
-        
-        window.addEventListener('load', initUI);
-        const mutationObserver = new MutationObserver(initUI);
-        mutationObserver.observe(document.body, { childList: true, subtree: true });
     </script>
 </body>
 </html>
