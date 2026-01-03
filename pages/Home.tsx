@@ -1,308 +1,307 @@
+
 import React, { useState, useEffect } from 'react';
 import { 
-  ArrowRight, Mail, MessageSquare, 
-  ShoppingBag, Package, FileCode, Smartphone, 
-  Palette, Briefcase, TrendingUp, Cpu, 
-  Layout, Shield, Globe, Video, 
-  MessageCircle, Box, Zap,
-  Star, Lock,
-  ChevronRight, ExternalLink
+  ArrowRight, Cpu, Shield, Zap, Activity, Layers, 
+  Terminal, Globe, ShoppingBag, Smartphone, Layout,
+  ChevronRight, ExternalLink, Box, Database, Lightbulb, Rocket, TrendingUp, Code, Building2
 } from 'lucide-react';
-import { SERVICES, TESTIMONIALS, CASE_STUDIES, BRAND_COLORS } from '../constants';
+import { Link } from 'react-router-dom';
+import { SERVICES, CASE_STUDIES, TESTIMONIALS } from '../constants';
 import { Service } from '../types';
 import SectionHeader from '../components/SectionHeader';
 import ServiceLightbox from '../components/ServiceLightbox';
+import ContactForm from '../components/ContactForm';
 import { useMagnetic } from '../hooks/useMagnetic';
 import { useTilt } from '../hooks/useTilt';
 
-const iconMap: any = {
-  ShoppingBag, Package, FileCode, Smartphone, 
-  Palette, Briefcase, TrendingUp, Cpu, 
-  Layout, Shield, Globe, Video, 
-  MessageCircle, Box, Zap
-};
+const iconMap: any = { ShoppingBag, Smartphone, Layout, Cpu, Shield, Zap, Activity, Layers };
 
-const TrustBar = () => (
-  <div className="marquee-container reveal active mb-24">
-    <div className="marquee-content">
-      <span className="marquee-item">Future Tech</span>
-      <span className="marquee-item">Scalable Code</span>
-      <span className="marquee-item">AI First</span>
-      <span className="marquee-item">High Performance</span>
-      <span className="marquee-item">Bespoke UI</span>
-      <span className="marquee-item">E-commerce Mastery</span>
-      <span className="marquee-item">Cloud Architecture</span>
-      {/* Repeat for loop */}
-      <span className="marquee-item">Future Tech</span>
-      <span className="marquee-item">Scalable Code</span>
-      <span className="marquee-item">AI First</span>
-      <span className="marquee-item">High Performance</span>
-      <span className="marquee-item">Bespoke UI</span>
-      <span className="marquee-item">E-commerce Mastery</span>
-      <span className="marquee-item">Cloud Architecture</span>
+const AbstractOrb = ({ tiltStyle, parallax }: { tiltStyle: any, parallax: { x: number, y: number } }) => {
+  return (
+    <div 
+      style={{
+        ...tiltStyle,
+        transform: `${(tiltStyle as any).transform || ''} translate3d(${parallax.x * 0.2}px, ${parallax.y * 0.2}px, 0)`
+      }}
+      className="relative w-full aspect-square max-w-[550px] mx-auto animate-float-subtle flex items-center justify-center"
+    >
+      <div className="absolute inset-0 bg-[#0051FF]/10 rounded-full blur-[120px] scale-90 animate-pulse"></div>
+      <div className="absolute w-[95%] h-[95%] border-[1.5px] border-dashed border-[#0051FF]/20 rounded-full animate-[spin_20s_linear_infinite]"></div>
+      <div className="absolute w-[85%] h-[85%] border-[1.5px] border-blue-200/40 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
+
+      <div className="relative w-64 h-64 lg:w-80 lg:h-80 group">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0051FF] to-[#4FACFE] rounded-full opacity-20 blur-2xl"></div>
+        <div className="relative h-full w-full bg-white/80 backdrop-blur-3xl rounded-full border-[10px] border-white shadow-[0_40px_80px_rgba(0,81,255,0.15)] overflow-hidden flex items-center justify-center">
+          <div className="scanline opacity-20"></div>
+          <div className="relative w-48 h-48 bg-[#0A2540] rounded-full flex items-center justify-center shadow-inner overflow-hidden">
+             <div className="absolute inset-0 bg-gradient-to-tr from-[#0051FF]/40 to-transparent"></div>
+             <div className="relative z-10 text-[#4FACFE] animate-pulse">
+                <Cpu size={80} />
+             </div>
+             <div className="absolute inset-0 border border-white/5 rounded-full animate-[spin_4s_linear_infinite]">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#4FACFE] rounded-full shadow-[0_0_15px_#4FACFE]"></div>
+             </div>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ transform: `translate3d(${parallax.x * -0.6}px, ${parallax.y * -0.6}px, 0)` }} className="absolute top-10 -left-6 z-20 transition-transform duration-300">
+         <div className="glass-panel px-6 py-4 rounded-2xl shadow-xl border-white border-2 flex items-center space-x-3">
+            <div className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></div>
+            <span className="text-[10px] font-black uppercase tracking-widest text-[#0A2540]">Engine v4.0 Active</span>
+         </div>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const Home: React.FC = () => {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const { ref: magRef1, style: magStyle1 } = useMagnetic(15);
-  const { ref: magRef2, style: magStyle2 } = useMagnetic(8);
+  const { ref: magRef, style: magStyle } = useMagnetic(12);
+  const { tiltStyle, onMouseMove, onMouseLeave } = useTilt(8); 
+  const [parallax, setParallax] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 12;
-      const y = (e.clientY / window.innerHeight - 0.5) * 12;
-      setMousePos({ x, y });
+    const handleMouse = (e: MouseEvent) => {
+      if (window.innerWidth < 1024) return;
+      setParallax({
+        x: (e.clientX - window.innerWidth / 2) / 60,
+        y: (e.clientY - window.innerHeight / 2) / 60,
+      });
     };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouse);
+    return () => window.removeEventListener('mousemove', handleMouse);
   }, []);
 
-  const openService = (service: Service) => setSelectedService(service);
-  const closeService = () => setSelectedService(null);
-
-  const navigateService = (direction: 'next' | 'prev') => {
-    if (!selectedService) return;
-    const currentIndex = SERVICES.findIndex(s => s.id === selectedService.id);
-    let nextIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
-    if (nextIndex >= SERVICES.length) nextIndex = 0;
-    if (nextIndex < 0) nextIndex = SERVICES.length - 1;
-    setSelectedService(SERVICES[nextIndex]);
-  };
-
   return (
-    <div className="pt-24 min-h-screen">
-      {/* Background Decor */}
-      <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-blue-100 rounded-full blur-[150px] opacity-40"></div>
-        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-sky-100 rounded-full blur-[120px] opacity-30"></div>
-      </div>
-
+    <div className="pt-24 min-h-screen bg-transparent">
       {/* Hero Section */}
-      <section className="container mx-auto px-6 py-12 lg:py-24 relative overflow-visible">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
-          <div className="lg:w-1/2 z-10 text-center lg:text-left reveal active">
-            <div className="tag-pill mb-8 inline-flex items-center space-x-2">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-200 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+      <section className="container mx-auto px-6 py-12 lg:py-40 relative">
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
+          <div className="lg:w-[55%] text-center lg:text-left z-10 reveal">
+            <div className="inline-flex items-center space-x-3 mb-6 lg:mb-10 glass-panel px-6 py-2.5 rounded-full border-white border-2 shadow-lg">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#0051FF]"></span>
               </span>
-              <span>Elite Engineering Protocol</span>
+              <span className="text-[9px] lg:text-[10px] font-black uppercase tracking-[0.3em] lg:tracking-[0.5em] text-[#0A2540]">Core Module // Sync Enabled</span>
             </div>
             
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-[#0A2540] leading-[0.95] tracking-tighter mb-8 reveal active stagger-1">
-              Bespoke <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4FACFE] to-[#0061FF]">Technology</span> for Global Scale.
+            <h1 className="text-fluid-h1 text-[#0A2540] mb-8 lg:mb-10 leading-[0.82] tracking-tighter">
+              Bespoke <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0051FF] to-[#4FACFE]">Digital</span> <br className="hidden lg:block"/> Mastery.
             </h1>
             
-            <p className="text-xl text-[#374151] mb-12 max-w-xl mx-auto lg:mx-0 leading-relaxed font-bold reveal active stagger-2">
-              The architecture collective delivering high-fidelity digital infrastructure, automation, and aesthetic precision.
+            <p className="text-lg lg:text-2xl text-[#475569] mb-10 lg:mb-14 max-w-2xl mx-auto lg:mx-0 font-bold opacity-80 leading-relaxed">
+              Engineering high-fidelity software architecture, elite UI ecosystems, and automation layers for global visionaries.
             </p>
             
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6 reveal active stagger-3">
-              <div ref={magRef1} style={magStyle1} className="magnetic-wrap w-full sm:w-auto">
-                <a 
-                  href="#/contact" 
-                  className="btn-primary w-full sm:w-auto px-12 py-5 rounded-2xl font-black text-center flex items-center justify-center transition-all group tracking-[0.2em] uppercase text-xs"
-                >
-                  <span className="relative z-10 flex items-center">Initialize project <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" /></span>
-                </a>
+            <div className="flex flex-col sm:flex-row gap-4 lg:gap-6 justify-center lg:justify-start">
+              <div ref={magRef} style={magStyle} className="magnetic-wrap w-full sm:w-auto">
+                <Link to="/contact" className="btn-primary w-full sm:px-14 py-6 lg:py-7 rounded-2xl lg:rounded-[2.5rem] font-black text-[11px] lg:text-xs uppercase tracking-[0.3em] flex items-center justify-center">
+                  Initiate Sync <ArrowRight className="ml-4 shrink-0" size={18} />
+                </Link>
               </div>
-              <div ref={magRef2} style={magStyle2} className="magnetic-wrap w-full sm:w-auto">
-                <a 
-                  href="#/services" 
-                  className="btn-outline w-full sm:w-auto px-12 py-5 rounded-2xl font-black text-xs tracking-[0.2em] uppercase text-center transition-all flex items-center justify-center"
-                >
-                  View Capabilities
-                </a>
-              </div>
+              <Link to="/services" className="btn-outline w-full sm:px-14 py-6 lg:py-7 rounded-2xl lg:rounded-[2.5rem] font-black text-[11px] lg:text-xs uppercase tracking-[0.3em] flex items-center justify-center border-2 border-slate-200 hover:border-[#0051FF] transition-all">
+                Unit Catalog
+              </Link>
             </div>
           </div>
 
-          <div className="hidden lg:flex lg:w-1/2 relative h-[600px] w-full items-center justify-center perspective-1000 reveal active stagger-2">
-            <div 
-              className="relative w-full max-w-[500px] aspect-square transition-transform duration-300 ease-out preserve-3d"
-              style={{ transform: `rotateX(${-mousePos.y}deg) rotateY(${mousePos.x}deg)` }}
-            >
-              <svg viewBox="0 0 200 200" className="w-full h-full animate-float">
-                <defs>
-                  <linearGradient id="orbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style={{ stopColor: '#4FACFE', stopOpacity: 1 }} />
-                    <stop offset="100%" style={{ stopColor: '#0061FF', stopOpacity: 1 }} />
-                  </linearGradient>
-                </defs>
-                <circle cx="100" cy="100" r="80" fill="url(#orbGrad)" opacity="0.15" stroke="#4FACFE" strokeWidth="1" />
-                <circle cx="100" cy="100" r="60" fill="white" opacity="0.1" stroke="#4FACFE" strokeWidth="0.5" strokeDasharray="10,5" className="animate-spin" style={{ animationDuration: '30s' }} />
-                
-                <g className="animate-spin" style={{ transformOrigin: 'center', animationDuration: '12s' }}>
-                  <ellipse cx="100" cy="100" rx="90" ry="35" fill="none" stroke="#4FACFE" strokeWidth="0.8" opacity="0.4" />
-                </g>
-                <g className="animate-spin" style={{ transformOrigin: 'center', animationDuration: '18s', animationDirection: 'reverse' }}>
-                  <ellipse cx="100" cy="100" rx="35" ry="90" fill="none" stroke="#0061FF" strokeWidth="0.8" opacity="0.4" />
-                </g>
-
-                {[0, 90, 180, 270].map((deg, i) => {
-                  const rad = (deg * Math.PI) / 180;
-                  const x = 100 + 85 * Math.cos(rad);
-                  const y = 100 + 85 * Math.sin(rad);
-                  return (
-                    <circle key={i} cx={x} cy={y} r="4" fill="#0A2540">
-                      <animate attributeName="opacity" values="0.4;1;0.4" dur="4s" begin={`${i}s`} repeatCount="indefinite" />
-                    </circle>
-                  );
-                })}
-              </svg>
-
-              <div className="absolute inset-0 flex items-center justify-center">
-                 <div className="w-40 h-40 bg-white rounded-[4rem] border-8 border-[#F0F7FF] shadow-[0_30px_60px_rgba(0,0,0,0.15)] flex items-center justify-center overflow-hidden group">
-                    <div className="w-20 h-20 bg-[#0A2540] rounded-3xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform duration-500">
-                      <Cpu className="text-white w-10 h-10" />
-                    </div>
-                 </div>
-              </div>
+          <div className="hidden lg:block lg:w-[45%] relative perspective-1000">
+            <div onMouseMove={onMouseMove} onMouseLeave={onMouseLeave}>
+              <AbstractOrb tiltStyle={tiltStyle} parallax={parallax} />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Looping Trust Bar */}
-      <TrustBar />
-
-      <div className="section-separator my-10"></div>
-
-      {/* Services Section - Showing 4 items */}
-      <section className="py-32" id="services">
+      {/* Operational Units */}
+      <section className="py-20 lg:py-40 bg-white/30">
         <div className="container mx-auto px-6">
           <SectionHeader 
-            title="Capability Units" 
-            subtitle="Specialized engineering squads handling high-fidelity architecture and automation."
+            title="Operational Units" 
+            subtitle="Specialized squads engineered for enterprise complexity and elite visual fidelity."
           />
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {SERVICES.slice(0, 4).map((service, idx) => {
-              const Icon = iconMap[service.icon];
-              const { tiltStyle, onMouseMove, onMouseLeave } = useTilt(6);
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10">
+            {SERVICES.slice(0, 4).map((service, i) => {
+              const Icon = iconMap[service.icon] || Activity;
               return (
                 <div 
                   key={service.id}
-                  onClick={() => openService(service)}
-                  onMouseMove={onMouseMove}
-                  onMouseLeave={onMouseLeave}
-                  style={tiltStyle}
-                  className="reveal soft-card p-12 cursor-pointer group flex flex-col h-full active stagger-1"
+                  onClick={() => setSelectedService(service)}
+                  className="glass-panel p-8 lg:p-12 rounded-[2.5rem] lg:rounded-[4.5rem] border-2 border-white hover:border-[#0051FF]/30 hover:shadow-2xl transition-all duration-700 group cursor-pointer reveal scan-wrapper"
+                  style={{ transitionDelay: `${i * 100}ms` }}
                 >
-                  <div className="w-16 h-16 bg-blue-50 border border-blue-100 rounded-[1.5rem] flex items-center justify-center mb-10 group-hover:bg-[#0A2540] group-hover:text-white transition-all duration-500 shadow-sm relative z-10">
-                    <Icon size={32} className="group-hover:text-white text-[#4FACFE]" />
+                  <div className="w-14 h-14 lg:w-16 lg:h-16 bg-[#0A2540] rounded-2xl flex items-center justify-center text-white mb-6 lg:mb-10 group-hover:bg-[#0051FF] group-hover:rotate-[12deg] transition-all duration-500 shadow-xl">
+                    <Icon size={28} />
                   </div>
-                  
-                  <h3 className="text-2xl font-black text-[#0A2540] mb-4 tracking-tight group-hover:text-[#4FACFE] transition-colors relative z-10">{service.title}</h3>
-                  <p className="text-[#374151] text-base leading-relaxed mb-10 flex-grow font-bold relative z-10 opacity-80">{service.shortDesc}</p>
-                  
-                  <div className="flex items-center text-[#4FACFE] font-black text-[10px] uppercase tracking-[0.2em] group-hover:translate-x-2 transition-all relative z-10">
-                    Deploy Workflow <ArrowRight size={14} className="ml-2" />
+                  <h3 className="text-xl lg:text-2xl font-black text-[#0A2540] mb-3 lg:mb-5 tracking-tight group-hover:text-[#0051FF] transition-colors">{service.title}</h3>
+                  <p className="text-[#64748B] text-sm lg:text-base leading-relaxed mb-8 lg:mb-12 font-bold opacity-80">{service.shortDesc}</p>
+                  <div className="flex items-center text-[#0051FF] font-black text-[9px] lg:text-[10px] uppercase tracking-[0.3em] lg:tracking-[0.4em] group-hover:translate-x-2 transition-transform">
+                    Initialize Protocol <ArrowRight size={14} className="ml-2" />
                   </div>
                 </div>
               );
             })}
           </div>
-          
-          <div className="mt-20 text-center reveal active">
-             <a href="#/services" className="btn-outline inline-flex items-center font-black text-xs tracking-widest uppercase group py-5 px-10 rounded-2xl transition-all">
-                View All Specialized Modules
-                <ChevronRight size={18} className="ml-3 group-hover:translate-x-1 transition-transform" />
-             </a>
-          </div>
         </div>
       </section>
 
-      {/* Case Studies Section */}
-      <section className="py-32 bg-white/40 backdrop-blur-md">
+      {/* Who We Work With */}
+      <section className="py-20 lg:py-40 bg-slate-50/50">
         <div className="container mx-auto px-6">
-          <SectionHeader title="Technical Authority" subtitle="Real-world results delivered through elite technical architecture and clean delivery." />
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-            {CASE_STUDIES.slice(0, 3).map((study, i) => (
-              <div key={i} className="reveal group flex flex-col h-full bg-white border-2 border-white rounded-[3rem] p-12 shadow-xl hover:shadow-2xl transition-all duration-500 active stagger-1 overflow-hidden hover:border-blue-100">
-                <div className="tag-pill mb-10 self-start">
-                  {study.category}
+          <SectionHeader 
+            title="Who We Work With" 
+            subtitle="Providing architectural support for industries that demand high performance and scalability."
+          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { title: "SaaS", icon: Globe, desc: "Distributed infrastructure and elite frontend ecosystems." },
+              { title: "Corporate Companies", icon: Building2, desc: "Secure, reliable, and standardized business software." },
+              { title: "E-commerce", icon: ShoppingBag, desc: "High-conversion luxury stores and inventory systems." },
+              { title: "AI Growth", icon: Zap, desc: "Automating workflows with custom-trained LLM agents." }
+            ].map((industry, i) => (
+              <div key={i} className="soft-card p-10 bg-white border border-slate-100 rounded-[3rem] reveal hover:shadow-2xl transition-all text-center group">
+                <div className="w-16 h-16 bg-[#0A2540] rounded-2xl flex items-center justify-center text-[#4FACFE] mx-auto mb-8 group-hover:scale-110 transition-transform shadow-lg">
+                  <industry.icon size={32} />
                 </div>
-                <h4 className="text-3xl font-black text-[#0A2540] mb-8 leading-tight tracking-tight">{study.title}</h4>
-                <div className="space-y-6 flex-grow">
-                   <p className="text-sm text-[#374151] leading-relaxed line-clamp-3 font-bold opacity-80">{study.overview}</p>
-                   <div className="flex flex-wrap gap-2">
-                     {study.techStack.map((tech, tIdx) => (
-                        <span key={tIdx} className="px-4 py-1.5 bg-blue-50 text-[10px] font-black text-[#0369A1] rounded-xl border border-blue-100 uppercase">{tech}</span>
-                     ))}
-                   </div>
-                </div>
-                <div className="mt-12 pt-8 border-t border-slate-100">
-                  <a href="#/case-studies" className="flex items-center font-black text-[10px] uppercase tracking-[0.3em] text-[#0A2540] hover:text-[#4FACFE] transition-colors">
-                    Access Case Profile <ExternalLink size={14} className="ml-2" />
-                  </a>
-                </div>
+                <h3 className="text-2xl font-black text-[#0A2540] mb-4 tracking-tight">{industry.title}</h3>
+                <p className="text-[#64748B] font-bold opacity-80 text-sm leading-relaxed">{industry.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-32">
+      {/* Dashboard Feature */}
+      <section className="py-20 lg:py-40 relative overflow-hidden">
         <div className="container mx-auto px-6">
-          <SectionHeader title="Partner Intelligence" />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {TESTIMONIALS.map((t, i) => (
-              <div key={i} className="reveal soft-card p-12 border-2 border-white active bg-white" style={{ transitionDelay: `${i * 100}ms` }}>
-                <div className="flex items-center space-x-6 mb-10">
-                  <img src={t.image} alt={t.name} className="w-16 h-16 rounded-[1.5rem] object-cover border-2 border-blue-50 shadow-md" />
-                  <div>
-                    <div className="font-black text-[#0A2540] text-lg">{t.name}</div>
-                    <div className="text-[10px] font-black text-[#6B7280] uppercase tracking-widest">{t.role}</div>
-                  </div>
-                </div>
-                <p className="text-[#374151] text-lg leading-relaxed italic font-bold opacity-90">"{t.content}"</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="py-32">
-        <div className="container mx-auto px-6">
-          <div className="relative bg-[#0A2540] rounded-[4rem] p-16 md:p-32 text-center text-white shadow-[0_40px_100px_rgba(10,37,64,0.4)] overflow-hidden group border-4 border-[#F0F7FF]">
-            <div className="relative z-10">
-              <h2 className="text-5xl md:text-8xl font-black mb-12 tracking-tighter leading-none reveal active">Ready for the <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4FACFE] to-[#00C6FB]">Upgrade?</span></h2>
-              <p className="text-2xl text-white/70 mb-16 max-w-2xl mx-auto font-bold reveal active stagger-1">
-                Collaborate with our architecture leads to engineer your next global ecosystem.
-              </p>
-              <div className="flex flex-col md:flex-row justify-center items-center gap-8 reveal active stagger-2">
-                 <a 
-                   href="#/contact" 
-                   className="btn-primary w-full md:w-auto px-16 py-7 rounded-[2.5rem] font-black text-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl uppercase tracking-[0.2em]"
-                 >
-                   Launch Project <ArrowRight className="ml-3" />
-                 </a>
-                 <div className="flex items-center space-x-6">
-                    <a href="https://wa.me/919106025254" className="bg-white/10 p-6 rounded-[2.5rem] hover:bg-white/20 transition-all border border-white/20 shadow-2xl">
-                      <MessageSquare size={28} className="text-white" />
-                    </a>
-                    <a href="mailto:hello@aavishkarcodex.com" className="bg-white/10 p-6 rounded-[2.5rem] hover:bg-white/20 transition-all border border-white/20 shadow-2xl">
-                      <Mail size={28} className="text-white" />
-                    </a>
+           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-center">
+              <div className="reveal">
+                 <div className="tag-pill mb-6 lg:mb-10 bg-blue-100 text-[#0051FF]">Performance Dashboard</div>
+                 <h2 className="text-4xl md:text-5xl lg:text-7xl font-black text-[#0A2540] mb-8 lg:mb-12 leading-[0.9] tracking-tighter">
+                   Scaling <br/> <span className="text-[#0051FF]">Complexity.</span>
+                 </h2>
+                 <div className="space-y-4 lg:space-y-6">
+                    {[
+                      { icon: Database, label: "Core Sync", val: "Optimal" },
+                      { icon: Globe, label: "Edge Latency", val: "< 140ms" },
+                      { icon: Shield, label: "Vault Security", val: "Verified" }
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-center space-x-6 lg:space-x-8 p-6 lg:p-8 glass-panel rounded-3xl lg:rounded-[3.5rem] border-white border-2 hover:translate-x-2 transition-transform">
+                        <div className="w-12 h-12 lg:w-16 lg:h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-[#0051FF]">
+                          <item.icon size={24} />
+                        </div>
+                        <div>
+                          <div className="text-[10px] lg:text-[11px] font-black uppercase tracking-[0.2em] lg:tracking-[0.3em] text-[#64748B] mb-1">{item.label}</div>
+                          <div className="text-xl lg:text-2xl font-black text-[#0A2540] tracking-tight">{item.val}</div>
+                        </div>
+                      </div>
+                    ))}
                  </div>
               </div>
-            </div>
+              <div className="reveal-scale">
+                 <div className="bg-[#0A2540] rounded-[3rem] lg:rounded-[6rem] p-1 shadow-2xl relative group overflow-hidden">
+                    <div className="bg-slate-900 rounded-[2.8rem] lg:rounded-[5.8rem] p-8 md:p-14 lg:p-28 overflow-hidden relative">
+                       <div className="scanline opacity-20"></div>
+                       <Terminal className="text-[#4FACFE] w-10 h-10 lg:w-16 lg:h-16 mb-8 lg:mb-12 animate-pulse" />
+                       <div className="font-mono text-xs md:text-sm lg:text-lg space-y-4 lg:space-y-6 text-emerald-400">
+                          <div className="opacity-40 tracking-tighter">>> SYNCING GLOBAL_NODES... [OK]</div>
+                          <div className="opacity-70 tracking-tighter">>> AUTHENTICATING ENCRYPTION_V4... [OK]</div>
+                          <div className="text-white font-bold tracking-tighter">>> DEPLOYING HIGH_FIDELITY_LAYER...</div>
+                          <div className="text-[#4FACFE] animate-pulse tracking-tighter">>> SYSTEM_READY: MISSION_START_STABLE</div>
+                       </div>
+                       <div className="absolute -bottom-20 -right-20 w-[200px] lg:w-[400px] h-[200px] lg:h-[400px] bg-[#0051FF] rounded-full blur-[100px] lg:blur-[140px] opacity-20 transition-opacity"></div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+      </section>
+
+      {/* How We Deliver Solutions */}
+      <section className="py-20 lg:py-40 bg-[#0A2540] text-white relative overflow-hidden">
+        <div className="scanline opacity-10"></div>
+        <div className="container mx-auto px-6">
+          <SectionHeader 
+            title="How We Deliver Solutions" 
+            subtitle="A rigorous four-phase protocol for guaranteed project stability and growth."
+            align="left"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-12 mt-20">
+            {[
+              { step: "01", title: "Ideation", icon: Lightbulb, desc: "We deconstruct your mission and synchronize technical goals." },
+              { step: "02", title: "Design the Solution", icon: Layout, desc: "Engineering high-fidelity visual prototypes and user flow systems." },
+              { step: "03", title: "Develop & Engineering", icon: Code, desc: "Hand-engineered artisanal code deployment with sub-second response." },
+              { step: "04", title: "Launch & Grow", icon: Rocket, desc: "Operational deployment followed by aggressive scaling and optimization." }
+            ].map((delivery, i) => (
+              <div key={i} className="relative group reveal" style={{ transitionDelay: `${i * 100}ms` }}>
+                <div className="flex flex-col items-start">
+                  <div className="w-16 h-16 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-[#4FACFE] mb-8 group-hover:bg-[#0051FF] group-hover:text-white transition-all shadow-xl">
+                    <delivery.icon size={28} />
+                  </div>
+                  <div className="text-[12px] font-black uppercase tracking-[0.4em] text-white/40 mb-3">{delivery.step} Protocol</div>
+                  <h3 className="text-2xl font-black mb-5 tracking-tight group-hover:text-[#4FACFE] transition-colors">{delivery.title}</h3>
+                  <p className="text-white/50 font-bold text-sm leading-relaxed">{delivery.desc}</p>
+                </div>
+                {i < 3 && <div className="hidden lg:block absolute top-8 left-full w-full h-[1px] bg-gradient-to-r from-white/10 to-transparent -ml-6 z-0"></div>}
+              </div>
+            ))}
           </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-20 lg:py-40 bg-white">
+        <div className="container mx-auto px-6">
+          <SectionHeader 
+            title="Success Signals" 
+            subtitle="Verified reports from global enterprise units and startups we've successfully scaled."
+          />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            {TESTIMONIALS.map((t, i) => (
+              <div key={i} className="soft-card p-12 bg-slate-50 border border-slate-100 rounded-[3.5rem] reveal flex flex-col justify-between group hover:shadow-2xl transition-all">
+                <div>
+                   <div className="flex space-x-1 mb-8">
+                     {[1,2,3,4,5].map(s => <Zap key={s} size={14} className="text-[#4FACFE]" fill="currentColor" />)}
+                   </div>
+                   <p className="text-[#374151] text-lg font-bold leading-relaxed opacity-90 italic">"{t.content}"</p>
+                </div>
+                <div className="flex items-center space-x-5 mt-10">
+                  <img src={t.image} alt={t.name} className="w-14 h-14 rounded-2xl object-cover shadow-lg border-2 border-white" />
+                  <div>
+                    <div className="font-black text-[#0A2540] text-lg">{t.name}</div>
+                    <div className="text-[10px] font-black uppercase tracking-widest text-[#4FACFE]">{t.role}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section Integrated Above Footer */}
+      <section id="contact-sync" className="py-20 lg:py-40 bg-[#F8FAFC] border-t border-slate-100">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mb-16 reveal">
+            <div className="tag-pill mb-8">Direct Link</div>
+            <h2 className="text-6xl md:text-8xl font-black text-[#0A2540] mb-8 tracking-tighter leading-[0.9]">
+              Start the <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4FACFE] to-[#0061FF]">Project.</span>
+            </h2>
+            <p className="text-2xl text-[#64748B] leading-relaxed max-w-2xl font-semibold opacity-90">
+              Our engineering leads are ready to synchronize with your technical vision.
+            </p>
+          </div>
+          <ContactForm />
         </div>
       </section>
 
       {selectedService && (
         <ServiceLightbox 
           service={selectedService} 
-          onClose={closeService} 
-          onNext={() => navigateService('next')}
-          onPrev={() => navigateService('prev')}
+          onClose={() => setSelectedService(null)} 
+          onNext={() => {}}
+          onPrev={() => {}}
         />
       )}
     </div>

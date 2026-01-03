@@ -1,8 +1,13 @@
-import { useState, useCallback } from 'react';
 
+import React, { useState, useCallback } from 'react';
+
+/**
+ * Hook to create a 3D tilt effect on an element based on mouse movements.
+ */
 export const useTilt = (intensity: number = 10) => {
   const [tiltStyle, setTiltStyle] = useState({});
 
+  // Fix: Explicitly imported React and used React.MouseEvent for type safety
   const onMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aavishkar Codex Infotech LLP | Modern IT Solutions</title>
-    <meta name="description" content="Premium technology solutions with a modern, app-inspired digital experience.">
+    <title>Aavishkar Codex Infotech LLP | Premium IT Solutions</title>
+    <meta name="description" content="Artisanal technology solutions for global visionaries. High-fidelity software architecture, design, and automation.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Lenis for Smooth Scrolling -->
@@ -12,234 +12,155 @@
     <style>
         :root {
             --easing: cubic-bezier(0.22, 1, 0.36, 1);
-            --transition-speed: 0.6s;
+            --transition-speed: 0.8s;
+            /* Optimized Clamps for better mobile fit */
+            --fluid-h1: clamp(1.8rem, 10vw, 8.5rem);
+            --fluid-h2: clamp(1.5rem, 8vw, 5.5rem);
+            --fluid-h3: clamp(1.2rem, 5vw, 3.5rem);
+            --primary: #0051FF;
+            --accent: #4FACFE;
         }
 
-        html.lenis {
-          height: auto;
-        }
-
-        .lenis.lenis-smooth {
-          scroll-behavior: auto !important;
-        }
-
-        .lenis.lenis-smooth [data-lenis-prevent] {
-          overscroll-behavior: contain;
-        }
-
-        .lenis.lenis-stopped {
-          overflow: hidden;
-        }
+        html.lenis { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             -webkit-font-smoothing: antialiased;
-            background-color: #F8FAFC; 
+            background-color: #FFFFFF; 
             color: #0F172A;
             overflow-x: hidden;
-        }
-
-        /* Modern Scrollbar Styling */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #F1F5F9;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #E2E8F0;
-            border-radius: 10px;
-            border: 2px solid #F1F5F9;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #4FACFE;
-        }
-
-        /* Utility classes */
-        .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-        }
-        .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        /* Prevent default cursor on desktop */
-        @media (min-width: 1025px) {
-            .custom-cursor-active {
-                cursor: none !important;
-            }
-            .custom-cursor-active a, 
-            .custom-cursor-active button,
-            .custom-cursor-active .cursor-pointer {
-                cursor: none !important;
-            }
-        }
-
-        #custom-cursor {
-            position: fixed;
-            width: 8px;
-            height: 8px;
-            background: #0A2540;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10001;
-            left: 0;
-            top: 0;
-            will-change: transform;
-            display: none;
-        }
-
-        #custom-cursor-ring {
-            position: fixed;
-            width: 40px;
-            height: 40px;
-            border: 2px solid rgba(10, 37, 64, 0.8);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            left: 0;
-            top: 0;
-            will-change: transform;
-            transition: width 0.3s var(--easing), height 0.3s var(--easing), background 0.3s var(--easing);
-            display: none;
-        }
-
-        @media (min-width: 1025px) {
-            #custom-cursor, #custom-cursor-ring { display: block; }
-        }
-
-        .cursor-active #custom-cursor-ring {
-            width: 60px;
-            height: 60px;
-            background: rgba(10, 37, 64, 0.05);
-            border-color: #4FACFE;
-        }
-
-        /* High Visibility Buttons */
-        .btn-primary {
-            background: #0A2540 !important;
-            color: #FFFFFF !important;
-            border: 2px solid #0A2540 !important;
-            box-shadow: 0 10px 25px rgba(10, 37, 64, 0.25) !important;
-            transition: all 0.3s var(--easing) !important;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            padding: 1rem 2.5rem;
-            border-radius: 1.5rem;
-        }
-        .btn-primary:hover {
-            background: #1e3a5a !important;
-            border-color: #1e3a5a !important;
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(10, 37, 64, 0.35) !important;
-        }
-
-        .btn-white {
-            background: #FFFFFF !important;
-            color: #0A2540 !important;
-            border: 2px solid #FFFFFF !important;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2) !important;
-            transition: all 0.3s var(--easing) !important;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            padding: 1.25rem 3rem;
-            border-radius: 1.5rem;
-            z-index: 10;
-        }
-        .btn-white:hover {
-            background: #F8FAFC !important;
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25) !important;
-        }
-
-        /* Card Definition */
-        .soft-card {
-            background: #FFFFFF;
-            border-radius: 2rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            border: 1px solid #E2E8F0;
-            transition: all 0.4s var(--easing);
-        }
-        .soft-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
-            border-color: #4FACFE;
-        }
-
-        /* Trust Bar Marquee */
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .marquee-container {
-            overflow: hidden;
-            white-space: nowrap;
-            display: flex;
             width: 100%;
-            background: #0A2540;
-            padding: 1.5rem 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        .marquee-content {
-            display: flex;
-            animation: marquee 40s linear infinite;
-            min-width: 200%;
-        }
-        .marquee-item {
-            font-size: 0.85rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.3em;
-            color: #FFFFFF;
-            margin: 0 4rem;
-            opacity: 0.8;
-            flex-shrink: 0;
         }
 
-        .reveal {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s var(--easing), transform 0.8s var(--easing);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid #E2E8F0;
+        /* DIGITAL TEXTURE OVERLAY */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 9999;
         }
 
-        /* Mobile Menu Link Animation */
-        .mobile-menu-link {
-            opacity: 0;
-            transform: translateX(-30px);
-            transition: all 0.6s var(--easing);
-        }
-        .mobile-menu-open .mobile-menu-link {
-            opacity: 1;
-            transform: translateX(0);
+        .text-fluid-h1 { font-size: var(--fluid-h1); line-height: 0.9; letter-spacing: -0.06em; font-weight: 800; }
+        .text-fluid-h2 { font-size: var(--fluid-h2); line-height: 0.95; letter-spacing: -0.05em; font-weight: 800; }
+
+        /* CURSOR SYSTEM */
+        #custom-cursor, #custom-cursor-ring { 
+            position: fixed;
+            pointer-events: none;
+            z-index: 99999;
+            border-radius: 50%;
+            display: none;
+            will-change: transform;
         }
 
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        .animate-float {
-            animation: float 5s ease-in-out infinite;
+        @media (min-width: 1025px) {
+            body.custom-cursor-active { cursor: none !important; }
+            body.custom-cursor-active a, 
+            body.custom-cursor-active button,
+            body.custom-cursor-active .interactive { cursor: none !important; }
+
+            #custom-cursor {
+                width: 6px; height: 6px;
+                background: #0051FF;
+                display: block;
+            }
+            #custom-cursor-ring {
+                width: 36px; height: 36px;
+                border: 1.5px solid rgba(0, 81, 255, 0.5);
+                display: block;
+                transition: width 0.3s var(--easing), height 0.3s var(--easing), border-color 0.3s var(--easing);
+            }
         }
 
-        /* Global Gradient Utility */
-        .gradient-primary {
-            background: linear-gradient(135deg, #4FACFE 0%, #0061FF 100%) !important;
+        /* ASSEMBLY ANIMATIONS */
+        .reveal { 
+            opacity: 0; 
+            transform: translateY(30px) skewY(0.5deg); 
+            transition: opacity 0.8s var(--easing), transform 0.8s var(--easing); 
+            will-change: transform, opacity;
+        }
+        .reveal.active { 
+            opacity: 1; 
+            transform: translateY(0) skewY(0deg); 
+        }
+        
+        .reveal-scale { 
+            opacity: 0; 
+            transform: scale(0.96) translateY(15px); 
+            transition: all 0.7s var(--easing); 
+        }
+        .reveal-scale.active { 
+            opacity: 1; 
+            transform: scale(1) translateY(0); 
+        }
+
+        /* IDLE FLOATING */
+        @keyframes float-subtle {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            33% { transform: translateY(-8px) rotate(0.1deg); }
+            66% { transform: translateY(-3px) rotate(-0.1deg); }
+        }
+        .animate-float-subtle { animation: float-subtle 8s ease-in-out infinite; }
+
+        /* SCANLINE EFFECT */
+        .scan-wrapper { position: relative; overflow: hidden; }
+        .scan-wrapper::after {
+            content: "";
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(0, 81, 255, 0.05), transparent);
+            animation: scan-vertical 12s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes scan-vertical {
+            0% { top: -100%; }
+            100% { top: 100%; }
+        }
+
+        /* GRID CANVAS */
+        #bg-grid-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(25px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0051FF 0%, #4FACFE 100%);
+            color: white;
+            box-shadow: 0 10px 30px -10px rgba(0, 81, 255, 0.4);
+            transition: all 0.5s var(--easing);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 50px -15px rgba(0, 81, 255, 0.5);
+        }
+        
+        .btn-pill {
+            border-radius: 9999px !important;
+        }
+
+        /* Responsive Mobile Layout Fixes */
+        @media (max-width: 640px) {
+            .container { padding-left: 1.25rem; padding-right: 1.25rem; }
         }
     </style>
 <script type="importmap">
@@ -255,82 +176,120 @@
 </script>
 </head>
 <body class="custom-cursor-active">
-    <div id="scroll-progress"></div>
+    <canvas id="bg-grid-canvas"></canvas>
     <div id="custom-cursor"></div>
     <div id="custom-cursor-ring"></div>
     <div id="root"></div>
+
     <script>
-        // Initialize Lenis Smooth Scroll
-        const lenis = new Lenis({
-          duration: 1.4,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          smoothWheel: true,
-          wheelMultiplier: 1.1,
-        });
+        // GRID CANVAS - optimized for mobile
+        const canvas = document.getElementById('bg-grid-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
 
-        // Expose to window for React components
-        window.lenis = lenis;
-
-        function raf(time) {
-          lenis.raf(time);
-          requestAnimationFrame(raf);
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
         }
+        window.addEventListener('resize', resize);
+        resize();
 
-        requestAnimationFrame(raf);
+        let mouseX = width / 2;
+        let mouseY = height / 2;
 
-        // Custom Cursor
-        const cursor = document.getElementById('custom-cursor');
-        const ring = document.getElementById('custom-cursor-ring');
-        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-        let ringX = mouseX, ringY = mouseY;
-        let cursorX = mouseX, cursorY = mouseY;
-
-        document.addEventListener('mousemove', (e) => {
+        window.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
-        }, { passive: true });
+        });
 
-        function animateCursor() {
-            cursorX += (mouseX - cursorX) * 0.95;
-            cursorY += (mouseY - cursorY) * 0.95;
-            ringX += (mouseX - ringX) * 0.18;
-            ringY += (mouseY - ringY) * 0.18;
-
-            cursor.style.transform = `translate3d(${cursorX - 4}px, ${cursorY - 4}px, 0)`;
-            ring.style.transform = `translate3d(${ringX - 20}px, ${ringY - 20}px, 0)`;
+        function drawGrid() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.strokeStyle = '#0051FF';
+            ctx.lineWidth = 0.5;
             
-            requestAnimationFrame(animateCursor);
-        }
-        requestAnimationFrame(animateCursor);
+            // Adjust density based on screen size
+            const gridSize = width < 768 ? 40 : 60;
+            for (let x = 0; x < width; x += gridSize) {
+                for (let y = 0; y < height; y += gridSize) {
+                    const dx = x - mouseX;
+                    const dy = y - mouseY;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    const range = width < 768 ? 100 : 180;
+                    const mag = Math.max(0, range - dist) / 5;
+                    
+                    const offsetX = (dx / dist) * mag || 0;
+                    const offsetY = (dy / dist) * mag || 0;
 
-        document.addEventListener('mouseover', (e) => {
-            if (e.target.closest('a, button, [role="button"], .cursor-pointer, select, input, textarea')) {
-                document.body.classList.add('cursor-active');
-            }
-        });
-
-        document.addEventListener('mouseout', (e) => {
-            if (e.target.closest('a, button, [role="button"], .cursor-pointer, select, input, textarea')) {
-                document.body.classList.remove('cursor-active');
-            }
-        });
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target);
+                    ctx.beginPath();
+                    ctx.arc(x + offsetX, y + offsetY, 0.4, 0, Math.PI * 2);
+                    ctx.stroke();
                 }
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+            }
+            requestAnimationFrame(drawGrid);
+        }
+        drawGrid();
 
-        const initReveals = () => {
-            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        // LENIS
+        const lenis = new Lenis({ 
+            duration: 1.2, 
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+            smoothWheel: true 
+        });
+        window.lenis = lenis;
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+
+        // CURSOR TRACKING
+        const cursor = document.getElementById('custom-cursor');
+        const ring = document.getElementById('custom-cursor-ring');
+        let curX = 0, curY = 0;
+        let ringX = 0, ringY = 0;
+
+        function updateCursor() {
+            curX += (mouseX - curX) * 0.25;
+            curY += (mouseY - curY) * 0.25;
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+
+            if(cursor) cursor.style.transform = `translate3d(${curX - 3}px, ${curY - 3}px, 0)`;
+            if(ring) ring.style.transform = `translate3d(${ringX - 18}px, ${ringY - 18}px, 0)`;
+            
+            requestAnimationFrame(updateCursor);
+        }
+        updateCursor();
+
+        // LISTENERS
+        const refreshCursorListeners = () => {
+            document.querySelectorAll('a, button, .interactive, select, input, textarea').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    if(ring) {
+                        ring.style.width = '60px'; ring.style.height = '60px';
+                        ring.style.borderColor = 'rgba(0, 81, 255, 0.8)';
+                    }
+                });
+                el.addEventListener('mouseleave', () => {
+                    if(ring) {
+                        ring.style.width = '36px'; ring.style.height = '36px';
+                        ring.style.borderColor = 'rgba(0, 81, 255, 0.3)';
+                    }
+                });
+            });
         };
 
-        const mutationObserver = new MutationObserver(() => initReveals());
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { 
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+
+        const initUI = () => {
+            document.querySelectorAll('.reveal, .reveal-scale').forEach(el => revealObserver.observe(el));
+            refreshCursorListeners();
+        };
+        
+        window.addEventListener('load', initUI);
+        const mutationObserver = new MutationObserver(initUI);
         mutationObserver.observe(document.body, { childList: true, subtree: true });
-        window.addEventListener('load', initReveals);
     </script>
 </body>
 </html>
