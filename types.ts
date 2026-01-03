@@ -1,4 +1,3 @@
-
 export interface Service {
   id: string;
   title: string;
@@ -12,12 +11,16 @@ export interface Service {
 }
 
 export enum ServiceCategory {
-  Development = "Development",
-  DesignBranding = "Design and Branding",
-  Marketing = "Marketing",
-  AutomationSystems = "Automation and Systems",
-  Media3D = "Media and 3D",
-  InfrastructureSupport = "Infrastructure and Support"
+  WebSoftwareDev = "Web & Software Development",
+  ECommerce = "E-Commerce Solutions",
+  MobileDev = "Mobile App Development",
+  BackendServer = "Backend & Server Technologies",
+  UIUXDesign = "UI / UX & Design",
+  DataAIAutomation = "Data, AI & Automation",
+  CloudDevOps = "Cloud, DevOps & Infrastructure",
+  NetworkingSecurity = "Networking & Cyber Security",
+  TechnicalTraining = "Programming & Technical Training",
+  InternshipsIndustry = "Internships & Industry Programs"
 }
 
 export interface Testimonial {

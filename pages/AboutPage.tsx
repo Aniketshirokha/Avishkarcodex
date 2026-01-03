@@ -1,6 +1,8 @@
+
 import React from 'react';
 import SectionHeader from '../components/SectionHeader';
 import { Shield, Zap, Globe, Users, Code2, ArrowUpRight, Cpu, Layers, Activity } from 'lucide-react';
+import Logo from '../components/Logo';
 
 const AboutPage: React.FC = () => {
   return (
@@ -49,8 +51,8 @@ const AboutPage: React.FC = () => {
                <div className="glass-panel p-10 md:p-20 flex flex-col items-center justify-center border-white border-4 md:border-[12px] aspect-square bg-white/90 rounded-[3rem] lg:rounded-[5rem] shadow-xl w-full max-w-[320px] md:max-w-[550px] scan-wrapper">
                   <div className="scanline opacity-10"></div>
                   <div className="relative z-10 text-center animate-float-subtle">
-                    <div className="w-20 h-20 md:w-32 md:h-32 bg-[#0A2540] rounded-[1.5rem] md:rounded-[2.5rem] flex items-center justify-center mb-6 md:mb-10 mx-auto shadow-xl">
-                       <Cpu size={40} className="text-[#4FACFE] md:w-16 md:h-16" />
+                    <div className="w-48 h-48 md:w-64 md:h-64 bg-transparent flex items-center justify-center mb-6 md:mb-10 mx-auto transition-transform duration-700">
+                       <Logo className="w-full h-full" />
                     </div>
                     <div className="text-3xl md:text-5xl lg:text-7xl font-black text-[#0A2540] mb-1 leading-none tracking-tighter uppercase italic">AAVISHKAR</div>
                     <div className="text-[#0051FF] font-black tracking-[0.4em] lg:tracking-[0.8em] uppercase text-[8px] lg:text-[10px]">Codex Infotech</div>

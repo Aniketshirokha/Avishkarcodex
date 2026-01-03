@@ -9,6 +9,8 @@ import CaseStudiesPage from './pages/CaseStudiesPage';
 import CareersPage from './pages/CareersPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
+import PrivacyPage from './pages/PrivacyPage';
+import TermsPage from './pages/TermsPage';
 
 // Scroll to top component on route change
 const ScrollToTop = () => {
@@ -33,6 +35,8 @@ const App: React.FC = () => {
             <Route path="/careers" element={<CareersPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="/terms" element={<TermsPage />} />
           </Routes>
         </main>
         <Footer />

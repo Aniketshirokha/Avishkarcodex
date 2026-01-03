@@ -3,6 +3,7 @@ import React from 'react';
 import { Mail, Phone, MapPin, Instagram, Linkedin, Twitter } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { BRAND_COLORS } from '../constants';
+import Logo from './Logo';
 
 const Footer: React.FC = () => {
   return (
@@ -12,9 +13,7 @@ const Footer: React.FC = () => {
           <div className="space-y-8">
              <Link to="/" className="flex items-center group">
                <div className="flex items-center space-x-3">
-                  <div className="relative w-10 h-10 rounded-full flex items-center justify-center overflow-hidden" style={{ backgroundColor: BRAND_COLORS.primary }}>
-                     <span className="text-white font-black text-xl">A</span>
-                  </div>
+                  <Logo size={48} />
                   <div className="flex flex-col">
                      <span className="font-bold text-xl tracking-tight leading-none" style={{ color: BRAND_COLORS.primary }}>AAVISHKAR</span>
                      <span className="text-[10px] font-bold tracking-[0.25em] opacity-80 uppercase" style={{ color: BRAND_COLORS.secondary }}>Codex Infotech</span>
@@ -60,16 +59,16 @@ const Footer: React.FC = () => {
             <h4 className="font-bold text-slate-900 mb-8 uppercase text-[10px] tracking-[0.3em]">HQ Office</h4>
             <ul className="space-y-6 text-sm font-bold text-slate-500">
               <li className="flex items-start space-x-3">
-                <MapPin size={18} style={{ color: BRAND_COLORS.secondary }} className="shrink-0" />
-                <span>Ahmedabad, Gujarat, India</span>
+                <MapPin size={18} style={{ color: BRAND_COLORS.secondary }} className="shrink-0 mt-1" />
+                <span className="leading-relaxed">202, I-The Address, Panchamrut Bunglows II, Sola, Ahmedabad, Gujarat 380060</span>
               </li>
               <li className="flex items-center space-x-3">
                 <Mail size={18} style={{ color: BRAND_COLORS.secondary }} className="shrink-0" />
-                <span>hello@aavishkarcodex.com</span>
+                <span>info@aavishkarcodex.com</span>
               </li>
               <li className="flex items-center space-x-3">
                 <Phone size={18} style={{ color: BRAND_COLORS.secondary }} className="shrink-0" />
-                <span>+91 91060 25254</span>
+                <span>+91 98980 02406</span>
               </li>
             </ul>
           </div>
@@ -78,8 +77,8 @@ const Footer: React.FC = () => {
         <div className="border-t border-slate-100 pt-10 flex flex-col md:flex-row justify-between items-center text-[10px] text-slate-400 font-black uppercase tracking-widest space-y-4 md:space-y-0">
           <p>© {new Date().getFullYear()} Aavishkar Codex Infotech LLP. All Rights Reserved.</p>
           <div className="flex space-x-8">
-            <a href="#" className="hover:text-slate-900">Privacy</a>
-            <a href="#" className="hover:text-slate-900">Terms</a>
+            <Link to="/privacy" className="hover:text-slate-900">Privacy Policy</Link>
+            <Link to="/terms" className="hover:text-slate-900">Terms & Conditions</Link>
           </div>
         </div>
       </div>

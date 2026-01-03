@@ -1,6 +1,8 @@
+
 import React, { useState, useEffect } from 'react';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import Logo from './Logo';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -33,9 +35,9 @@ const Header: React.FC = () => {
 
         <Link to="/" className="flex items-center group z-50">
           <div className="flex items-center space-x-3 md:space-x-4">
-             <div className="relative w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-[1.2rem] bg-[#0A2540] flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:rotate-6 shadow-xl">
-                <span className="text-white font-black text-xl md:text-2xl">A</span>
-                <div className="scanline opacity-30"></div>
+             <div className="relative w-12 h-12 md:w-14 md:h-14 bg-transparent flex items-center justify-center transition-all duration-500 group-hover:scale-110">
+                <Logo className="transition-transform duration-700 group-hover:rotate-6" size={56} />
+                <div className="scanline opacity-10 pointer-events-none absolute inset-0"></div>
              </div>
              <div className="flex flex-col">
                 <span className="font-black text-lg md:text-xl tracking-tighter text-[#0A2540] leading-none uppercase">AAVISHKAR</span>
@@ -73,7 +75,6 @@ const Header: React.FC = () => {
 
       {/* Mobile Menu Overlay */}
       <div className={`lg:hidden fixed inset-0 bg-[#0A2540] transition-all duration-700 ease-[cubic-bezier(0.85,0,0.15,1)] ${isMobileMenuOpen ? 'translate-y-0 opacity-100 pointer-events-auto' : '-translate-y-full opacity-0 pointer-events-none'} z-[90]`}>
-        {/* Explicit Close Button inside Menu */}
         <div className="absolute top-8 right-6">
            <button 
              onClick={() => setIsMobileMenuOpen(false)}
